@@ -168,11 +168,12 @@ nav.scrolled {
 }
 
 .hero-text h1 {
-    font-size: clamp(2.8rem, 7vw, 4.8rem);
+    font-size: clamp(2rem, 5.5vw, 4.5rem);
     line-height: 1.1;
     margin-bottom: 1rem;
     letter-spacing: -1px;
     word-break: keep-all;
+    white-space: nowrap;
 }
 
 .highlight {
