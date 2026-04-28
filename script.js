@@ -90,6 +90,24 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // Photo Slider Logic
+    const slides = document.querySelectorAll('.slide');
+    const dots = document.querySelectorAll('.dot');
+    let currentSlide = 0;
+    const slideInterval = 4000; // 4 seconds
+
+    function nextSlide() {
+        slides[currentSlide].classList.remove('active');
+        dots[currentSlide].classList.remove('active');
+        currentSlide = (currentSlide + 1) % slides.length;
+        slides[currentSlide].classList.add('active');
+        dots[currentSlide].classList.add('active');
+    }
+
+    if (slides.length > 0) {
+        setInterval(nextSlide, slideInterval);
+    }
+
     // Add glowing effect to project cards on hover
     const projectCards = document.querySelectorAll('.project-card');
     projectCards.forEach(card => {
