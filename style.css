@@ -269,11 +269,11 @@ nav.scrolled {
 
 .slider-wrapper {
     position: relative;
-    width: 280px; /* Even smaller */
-    height: 340px; /* Even smaller */
-    border-radius: 20px;
+    width: 240px; /* Ultra-compact size */
+    height: 300px; /* Ultra-compact size */
+    border-radius: 16px;
     z-index: 2;
-    box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.5);
 }
 
 .image-slider {
