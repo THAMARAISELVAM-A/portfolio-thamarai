@@ -7,26 +7,41 @@ document.addEventListener('DOMContentLoaded', () => {
         offset: 100
     });
 
-    // Custom Cursor
+    // Custom Cursor - God Level Logic
     const cursor = document.querySelector('.cursor');
     const follower = document.querySelector('.cursor-follower');
+    
+    let mouseX = 0, mouseY = 0;
+    let cursorX = 0, cursorY = 0;
+    let followerX = 0, followerY = 0;
 
     document.addEventListener('mousemove', (e) => {
-        cursor.style.transform = `translate3d(${e.clientX}px, ${e.clientY}px, 0)`;
-        follower.style.transform = `translate3d(${e.clientX - 11}px, ${e.clientY - 11}px, 0)`;
+        mouseX = e.clientX;
+        mouseY = e.clientY;
     });
 
+    function animate() {
+        // Lerp for smoothness
+        cursorX += (mouseX - cursorX) * 0.2;
+        cursorY += (mouseY - cursorY) * 0.2;
+        followerX += (mouseX - followerX) * 0.1;
+        followerY += (mouseY - followerY) * 0.1;
+
+        cursor.style.transform = `translate3d(${cursorX}px, ${cursorY}px, 0)`;
+        follower.style.transform = `translate3d(${followerX - 20}px, ${followerY - 20}px, 0)`;
+
+        requestAnimationFrame(animate);
+    }
+    animate();
+
     // Cursor interaction with links
-    const links = document.querySelectorAll('a, button, .project-card, .about-card');
-    links.forEach(link => {
-        link.addEventListener('mouseenter', () => {
-            follower.style.transform += ' scale(2)';
-            follower.style.borderColor = 'var(--primary)';
-            follower.style.backgroundColor = 'rgba(0, 242, 255, 0.1)';
+    const interactiveElements = document.querySelectorAll('a, button, .project-card, .about-card, .skill-tags span');
+    interactiveElements.forEach(el => {
+        el.addEventListener('mouseenter', () => {
+            follower.classList.add('active');
         });
-        link.addEventListener('mouseleave', () => {
-            follower.style.transform = follower.style.transform.replace(' scale(2)', '');
-            follower.style.backgroundColor = 'transparent';
+        el.addEventListener('mouseleave', () => {
+            follower.classList.remove('active');
         });
     });
 
