@@ -28,7 +28,6 @@ body {
     font-family: 'Outfit', sans-serif;
     line-height: 1.6;
     overflow-x: hidden;
-    cursor: none; /* Custom cursor */
 }
 
 h1, h2, h3, h4 {
@@ -69,77 +68,7 @@ h1, h2, h3, h4 {
     mask-image: radial-gradient(circle at center, black, transparent 80%);
 }
 
-/* Custom Cursor - God Level 2.0 */
-.cursor {
-    width: 6px;
-    height: 6px;
-    background: var(--primary);
-    border-radius: 50%;
-    position: fixed;
-    top: 0;
-    left: 0;
-    pointer-events: none;
-    z-index: 10001;
-    transition: width 0.3s, height 0.3s, background-color 0.3s, transform 0.1s;
-    box-shadow: 0 0 15px var(--primary);
-}
-
-.cursor-follower {
-    width: 35px;
-    height: 35px;
-    border: 1px solid rgba(0, 242, 255, 0.4);
-    border-radius: 50%;
-    position: fixed;
-    top: 0;
-    left: 0;
-    pointer-events: none;
-    z-index: 10000;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: width 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), 
-                height 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), 
-                border-color 0.3s, background-color 0.3s;
-}
-
-.cursor-aura {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 250px;
-    height: 250px;
-    background: radial-gradient(circle, rgba(0, 242, 255, 0.05) 0%, transparent 70%);
-    border-radius: 50%;
-    pointer-events: none;
-    z-index: 9998;
-}
-
-.cursor-follower::after {
-    content: '';
-    width: 80%;
-    height: 80%;
-    border: 1px solid var(--primary);
-    border-radius: 50%;
-    position: absolute;
-    opacity: 0;
-    transition: opacity 0.3s;
-    border-style: double;
-}
-
-.cursor-follower.active {
-    width: 55px;
-    height: 55px;
-    border-color: var(--primary);
-    background: rgba(0, 242, 255, 0.1);
-}
-
-.cursor-follower.active::after {
-    opacity: 0.5;
-    animation: rotate 10s linear infinite;
-}
-
-/* Navbar */
-nav {
+/* Navbar */nav {
     position: fixed;
     top: 0;
     width: 100%;
@@ -372,42 +301,31 @@ nav.scrolled {
 
 .scroll-down {
     position: absolute;
-    bottom: 40px;
+    bottom: 30px;
     left: 50%;
     transform: translateX(-50%);
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 15px;
+    gap: 10px;
     color: var(--text-muted);
-    font-size: 0.75rem;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    font-weight: 500;
+    font-size: 0.7rem;
+    letter-spacing: 2px;
 }
 
-.scroll-line {
-    width: 1px;
-    height: 60px;
-    background: linear-gradient(to bottom, var(--primary), transparent);
-    position: relative;
-    overflow: hidden;
+.scroll-arrow {
+    width: 20px;
+    height: 20px;
+    border-right: 2px solid var(--primary);
+    border-bottom: 2px solid var(--primary);
+    transform: rotate(45deg);
+    animation: arrow-pulse 2s infinite;
 }
 
-.scroll-line::after {
-    content: '';
-    position: absolute;
-    top: -60px;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: white;
-    animation: scroll-anim 2s infinite cubic-bezier(0.7, 0, 0.3, 1);
-}
-
-@keyframes scroll-anim {
-    0% { top: -60px; }
-    100% { top: 60px; }
+@keyframes arrow-pulse {
+    0% { transform: rotate(45deg) translate(-5px, -5px); opacity: 0; }
+    50% { opacity: 1; }
+    100% { transform: rotate(45deg) translate(5px, 5px); opacity: 0; }
 }
 
 /* Sections */

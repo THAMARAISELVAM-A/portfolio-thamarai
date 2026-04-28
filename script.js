@@ -7,50 +7,6 @@ document.addEventListener('DOMContentLoaded', () => {
         offset: 100
     });
 
-    // Custom Cursor - God Level Logic 2.0
-    const cursor = document.querySelector('.cursor');
-    const follower = document.querySelector('.cursor-follower');
-    const aura = document.querySelector('.cursor-aura');
-    
-    let mouseX = 0, mouseY = 0;
-    let cursorX = 0, cursorY = 0;
-    let followerX = 0, followerY = 0;
-
-    document.addEventListener('mousemove', (e) => {
-        mouseX = e.clientX;
-        mouseY = e.clientY;
-    });
-
-    function animate() {
-        // Precise Lerp for smoothness
-        cursorX += (mouseX - cursorX) * 0.25;
-        cursorY += (mouseY - cursorY) * 0.25;
-        followerX += (mouseX - followerX) * 0.12;
-        followerY += (mouseY - followerY) * 0.12;
-
-        cursor.style.transform = `translate3d(${mouseX}px, ${mouseY}px, 0) translate(-50%, -50%)`;
-        follower.style.transform = `translate3d(${followerX}px, ${followerY}px, 0) translate(-50%, -50%)`;
-        aura.style.transform = `translate3d(${mouseX}px, ${mouseY}px, 0) translate(-50%, -50%)`;
-
-        requestAnimationFrame(animate);
-    }
-    animate();
-
-    // Cursor interaction with interactive elements
-    const interactiveElements = document.querySelectorAll('a, button, .project-card, .about-card, .skill-tags span, .timeline-content, .btn-icon');
-    interactiveElements.forEach(el => {
-        el.addEventListener('mouseenter', () => {
-            follower.classList.add('active');
-            cursor.style.backgroundColor = 'white';
-            cursor.style.transform += ' scale(2.5)';
-        });
-        el.addEventListener('mouseleave', () => {
-            follower.classList.remove('active');
-            cursor.style.backgroundColor = 'var(--primary)';
-            cursor.style.transform = cursor.style.transform.replace(' scale(2.5)', '');
-        });
-    });
-
     // Typewriter Effect
     const typewriterElement = document.getElementById('typewriter');
     const words = ["SOC Analyst", "Threat Hunter", "Cybersecurity Researcher", "Embedded Engineer"];
