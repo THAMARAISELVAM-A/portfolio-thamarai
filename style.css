@@ -825,8 +825,14 @@ nav.scrolled {
     }
 
     .hero-text h1 { 
-        font-size: clamp(1.4rem, 8vw, 2.2rem); 
-        white-space: normal; /* Allow wrap on very small screens if needed */
+        font-size: clamp(1.4rem, 10vw, 2.5rem); 
+        white-space: normal !important; 
+        word-break: break-word;
+        line-height: 1.3;
+    }
+    
+    .hero-text h2 {
+        font-size: 1.5rem;
     }
     
     .slider-wrapper { 
