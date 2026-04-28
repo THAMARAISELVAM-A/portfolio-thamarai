@@ -7,9 +7,10 @@ document.addEventListener('DOMContentLoaded', () => {
         offset: 100
     });
 
-    // Custom Cursor - God Level Logic
+    // Custom Cursor - God Level Logic 2.0
     const cursor = document.querySelector('.cursor');
     const follower = document.querySelector('.cursor-follower');
+    const aura = document.querySelector('.cursor-aura');
     
     let mouseX = 0, mouseY = 0;
     let cursorX = 0, cursorY = 0;
@@ -21,27 +22,32 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     function animate() {
-        // Lerp for smoothness
-        cursorX += (mouseX - cursorX) * 0.2;
-        cursorY += (mouseY - cursorY) * 0.2;
-        followerX += (mouseX - followerX) * 0.1;
-        followerY += (mouseY - followerY) * 0.1;
+        // Precise Lerp for smoothness
+        cursorX += (mouseX - cursorX) * 0.25;
+        cursorY += (mouseY - cursorY) * 0.25;
+        followerX += (mouseX - followerX) * 0.12;
+        followerY += (mouseY - followerY) * 0.12;
 
-        cursor.style.transform = `translate3d(${cursorX}px, ${cursorY}px, 0)`;
-        follower.style.transform = `translate3d(${followerX - 20}px, ${followerY - 20}px, 0)`;
+        cursor.style.transform = `translate3d(${mouseX}px, ${mouseY}px, 0) translate(-50%, -50%)`;
+        follower.style.transform = `translate3d(${followerX}px, ${followerY}px, 0) translate(-50%, -50%)`;
+        aura.style.transform = `translate3d(${mouseX}px, ${mouseY}px, 0) translate(-50%, -50%)`;
 
         requestAnimationFrame(animate);
     }
     animate();
 
-    // Cursor interaction with links
-    const interactiveElements = document.querySelectorAll('a, button, .project-card, .about-card, .skill-tags span');
+    // Cursor interaction with interactive elements
+    const interactiveElements = document.querySelectorAll('a, button, .project-card, .about-card, .skill-tags span, .timeline-content, .btn-icon');
     interactiveElements.forEach(el => {
         el.addEventListener('mouseenter', () => {
             follower.classList.add('active');
+            cursor.style.backgroundColor = 'white';
+            cursor.style.transform += ' scale(2.5)';
         });
         el.addEventListener('mouseleave', () => {
             follower.classList.remove('active');
+            cursor.style.backgroundColor = 'var(--primary)';
+            cursor.style.transform = cursor.style.transform.replace(' scale(2.5)', '');
         });
     });
 

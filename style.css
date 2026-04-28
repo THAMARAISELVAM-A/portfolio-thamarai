@@ -69,59 +69,73 @@ h1, h2, h3, h4 {
     mask-image: radial-gradient(circle at center, black, transparent 80%);
 }
 
-/* Custom Cursor - God Level */
+/* Custom Cursor - God Level 2.0 */
 .cursor {
-    width: 8px;
-    height: 8px;
+    width: 6px;
+    height: 6px;
     background: var(--primary);
     border-radius: 50%;
     position: fixed;
+    top: 0;
+    left: 0;
     pointer-events: none;
-    z-index: 10000;
-    transition: transform 0.1s ease-out;
-    box-shadow: 0 0 10px var(--primary), 0 0 20px var(--primary);
+    z-index: 10001;
+    transition: width 0.3s, height 0.3s, background-color 0.3s, transform 0.1s;
+    box-shadow: 0 0 15px var(--primary);
 }
 
 .cursor-follower {
-    width: 40px;
-    height: 40px;
-    border: 1px solid rgba(0, 242, 255, 0.3);
+    width: 35px;
+    height: 35px;
+    border: 1px solid rgba(0, 242, 255, 0.4);
     border-radius: 50%;
     position: fixed;
+    top: 0;
+    left: 0;
     pointer-events: none;
-    z-index: 9999;
-    transition: transform 0.15s ease-out, width 0.3s, height 0.3s, border-color 0.3s;
+    z-index: 10000;
     display: flex;
     align-items: center;
     justify-content: center;
+    transition: width 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), 
+                height 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), 
+                border-color 0.3s, background-color 0.3s;
+}
+
+.cursor-aura {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 250px;
+    height: 250px;
+    background: radial-gradient(circle, rgba(0, 242, 255, 0.05) 0%, transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9998;
 }
 
 .cursor-follower::after {
     content: '';
-    width: 100%;
-    height: 100%;
-    border: 1px dashed var(--primary);
+    width: 80%;
+    height: 80%;
+    border: 1px solid var(--primary);
     border-radius: 50%;
     position: absolute;
-    animation: rotate 4s linear infinite;
     opacity: 0;
     transition: opacity 0.3s;
-}
-
-@keyframes rotate {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
+    border-style: double;
 }
 
 .cursor-follower.active {
-    width: 60px;
-    height: 60px;
+    width: 55px;
+    height: 55px;
     border-color: var(--primary);
-    background: rgba(0, 242, 255, 0.05);
+    background: rgba(0, 242, 255, 0.1);
 }
 
 .cursor-follower.active::after {
-    opacity: 1;
+    opacity: 0.5;
+    animation: rotate 10s linear infinite;
 }
 
 /* Navbar */
@@ -358,43 +372,42 @@ nav.scrolled {
 
 .scroll-down {
     position: absolute;
-    bottom: 30px;
+    bottom: 40px;
     left: 50%;
     transform: translateX(-50%);
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 10px;
+    gap: 15px;
     color: var(--text-muted);
-    font-size: 0.8rem;
-    letter-spacing: 2px;
+    font-size: 0.75rem;
+    letter-spacing: 3px;
     text-transform: uppercase;
+    font-weight: 500;
 }
 
-.mouse {
-    width: 25px;
-    height: 40px;
-    border: 2px solid var(--glass-border);
-    border-radius: 20px;
+.scroll-line {
+    width: 1px;
+    height: 60px;
+    background: linear-gradient(to bottom, var(--primary), transparent);
     position: relative;
+    overflow: hidden;
 }
 
-.mouse::before {
+.scroll-line::after {
     content: '';
     position: absolute;
-    top: 8px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 4px;
-    height: 8px;
-    background: var(--primary);
-    border-radius: 2px;
-    animation: scroll 2s infinite;
+    top: -60px;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: white;
+    animation: scroll-anim 2s infinite cubic-bezier(0.7, 0, 0.3, 1);
 }
 
-@keyframes scroll {
-    0% { transform: translate(-50%, 0); opacity: 1; }
-    100% { transform: translate(-50%, 15px); opacity: 0; }
+@keyframes scroll-anim {
+    0% { top: -60px; }
+    100% { top: 60px; }
 }
 
 /* Sections */
