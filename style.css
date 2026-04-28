@@ -148,8 +148,8 @@ nav.scrolled {
 
 .hero-content {
     display: grid;
-    grid-template-columns: 1.2fr 0.8fr;
-    gap: 4rem;
+    grid-template-columns: 1.4fr 0.6fr; /* More space for text */
+    gap: 3rem;
     align-items: center;
 }
 
@@ -168,8 +168,8 @@ nav.scrolled {
 }
 
 .hero-text h1 {
-    font-size: clamp(2rem, 5.5vw, 4.5rem);
-    line-height: 1.1;
+    font-size: clamp(1.8rem, 4.5vw, 3.5rem); /* Smaller max size */
+    line-height: 1.2;
     margin-bottom: 1rem;
     letter-spacing: -1px;
     word-break: keep-all;
@@ -269,10 +269,11 @@ nav.scrolled {
 
 .slider-wrapper {
     position: relative;
-    width: 320px; /* Smaller width */
-    height: 380px; /* Smaller height */
-    border-radius: 24px;
+    width: 280px; /* Even smaller */
+    height: 340px; /* Even smaller */
+    border-radius: 20px;
     z-index: 2;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.4);
 }
 
 .image-slider {
