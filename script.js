@@ -7,6 +7,29 @@ document.addEventListener('DOMContentLoaded', () => {
         offset: 100
     });
 
+    // Preloader
+    const preloader = document.getElementById('preloader');
+    const loaderProgress = document.querySelector('.loader-progress');
+    let progress = 0;
+    
+    const loadingInterval = setInterval(() => {
+        progress += 5;
+        if (loaderProgress) {
+            loaderProgress.style.width = `${progress}%`;
+        }
+        if (progress >= 100) {
+            clearInterval(loadingInterval);
+            setTimeout(() => {
+                preloader.classList.add('hidden');
+                document.body.classList.add('loaded');
+                document.body.classList.remove('loading');
+            }, 500);
+        }
+    }, 50);
+
+    // Start loading animation
+    document.body.classList.add('loading');
+
     // Typewriter Effect
     const typewriterElement = document.getElementById('typewriter');
     const words = ["SOC Analyst", "Threat Hunter", "Cybersecurity Researcher", "Embedded Engineer"];
@@ -147,4 +170,109 @@ document.addEventListener('DOMContentLoaded', () => {
             card.style.setProperty('--mouse-y', `${y}px`);
         });
     });
+
+    // Skill Progress Bar Animation
+    const skillBars = document.querySelectorAll('.skill-progress');
+    const animateSkills = () => {
+        skillBars.forEach(bar => {
+            const progress = bar.getAttribute('data-progress');
+            bar.style.width = `${progress}%`;
+        });
+    };
+
+    const skillsSection = document.querySelector('#skills');
+    if (skillsSection) {
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    animateSkills();
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.3 });
+        observer.observe(skillsSection);
+    }
+
+    // Active Nav Link Highlighting on Scroll
+    const sections = document.querySelectorAll('section[id]');
+    const navItems = document.querySelectorAll('.nav-links a[href^="#"]');
+
+    const highlightNavOnScroll = () => {
+        const scrollY = window.scrollY + 150;
+        sections.forEach(section => {
+            const top = section.offsetTop;
+            const height = section.offsetHeight;
+            const id = section.getAttribute('id');
+            
+            if (scrollY >= top && scrollY < top + height) {
+                navItems.forEach(item => {
+                    item.classList.remove('active');
+                    if (item.getAttribute('href') === `#${id}`) {
+                        item.classList.add('active');
+                    }
+                });
+            }
+        });
+    };
+
+    window.addEventListener('scroll', highlightNavOnScroll);
+
+    // Back to Top Button
+    const backToTopBtn = document.getElementById('backToTop');
+
+    const toggleBackToTop = () => {
+        if (window.scrollY > 500) {
+            backToTopBtn.classList.add('visible');
+        } else {
+            backToTopBtn.classList.remove('visible');
+        }
+    };
+
+    if (backToTopBtn) {
+        backToTopBtn.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+        window.addEventListener('scroll', toggleBackToTop);
+    }
+
+    // Stats Counter Animation
+    const statNumbers = document.querySelectorAll('.stat-number');
+    let statsAnimated = false;
+
+    const animateStats = () => {
+        statNumbers.forEach(stat => {
+            const target = parseInt(stat.getAttribute('data-target'));
+            const increment = target / 60;
+            let current = 0;
+
+            const updateCount = () => {
+                if (current < target) {
+                    current += increment;
+                    stat.textContent = Math.ceil(current);
+                    requestAnimationFrame(updateCount);
+                } else {
+                    stat.textContent = target;
+                }
+            };
+
+            updateCount();
+        });
+    };
+
+    const statsSection = document.querySelector('.stats-section');
+    if (statsSection && statNumbers.length > 0) {
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting && !statsAnimated) {
+                    statsAnimated = true;
+                    animateStats();
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.5 });
+        observer.observe(statsSection);
+    }
 });
